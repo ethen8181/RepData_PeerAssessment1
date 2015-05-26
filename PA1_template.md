@@ -258,7 +258,7 @@ mergedata$Data    <- revalue( mergedata$Data, c( "Steps.x" = "NAs excluded", "St
 
 ```r
 ggplot( mergedata, aes( x = date , y = Steps, fill = Data  ) ) + 
-  geom_histogram( stat = "identity", position="dodge" ) +  
+  geom_histogram( stat = "identity", position = "dodge" ) +  
   ggtitle( "Total number of steps taken each day" ) + xlab( "Date: 2012/10/1 ~ 2012/11/30" ) + theme(
     plot.title   = element_text( size = 24, face = "bold" ),
     legend.title = element_text( size = 18 ),
@@ -282,11 +282,12 @@ ggplot( mergedata, aes( x = date , y = Steps, fill = Data  ) ) +
 
 ## 5. Are there differences in activity patterns between weekdays and weekends? Use the dataset with the filled-in missing values for this part.
 
-#### 5-1. Create a new factor variable in the dataset with two levels – “weekday” and “weekend” indicating whether a given date is a weekday or weekend day.
+#### 5-1. Create a new factor variable in the dataset with two levels ?V ??weekday?? and ??weekend?? indicating whether a given date is a weekday or weekend day.
 
 - Convert the date column in `DT1` from character to date type.
 - Add a new column called week referring to the weekdays of the date.
-- **My weekdays function will print out the weekdays Chinese, FYI : 星期一 = Monday ; 星期二 = Thuesday ; 星期三 = Wednesday ; 星期四 = Thursday ; 星期五 = Friday ; 星期六 = Saturday ; 星期日 = Sunday .**
+
+
 
 ```r
 DT1$date <- as.Date( DT1$date, format = "%Y-%m-%d" )
@@ -295,23 +296,23 @@ DT1[, week := weekdays(DT1$date) ]
 
 ```
 ##            steps       date interval   week
-##     1: 1.7169811 2012-10-01        0 星期一
-##     2: 0.3396226 2012-10-01        5 星期一
-##     3: 0.1320755 2012-10-01       10 星期一
-##     4: 0.1509434 2012-10-01       15 星期一
-##     5: 0.0754717 2012-10-01       20 星期一
+##     1: 1.7169811 2012-10-01        0 Monday
+##     2: 0.3396226 2012-10-01        5 Monday
+##     3: 0.1320755 2012-10-01       10 Monday
+##     4: 0.1509434 2012-10-01       15 Monday
+##     5: 0.0754717 2012-10-01       20 Monday
 ##    ---                                     
-## 17564: 4.6981132 2012-11-30     2335 星期五
-## 17565: 3.3018868 2012-11-30     2340 星期五
-## 17566: 0.6415094 2012-11-30     2345 星期五
-## 17567: 0.2264151 2012-11-30     2350 星期五
-## 17568: 1.0754717 2012-11-30     2355 星期五
+## 17564: 4.6981132 2012-11-30     2335 Friday
+## 17565: 3.3018868 2012-11-30     2340 Friday
+## 17566: 0.6415094 2012-11-30     2345 Friday
+## 17567: 0.2264151 2012-11-30     2350 Friday
+## 17568: 1.0754717 2012-11-30     2355 Friday
 ```
 
 - Convert the weekdays to just weekend and weekday and as factor.
 
 ```r
-DT1$week <- ifelse( DT1$week %in% c( "星期六", "星期日" ), "weekend", "weekday" )
+DT1$week <- ifelse( DT1$week %in% c( "Saturday", "Sunday" ), "weekend", "weekday" )
 DT1$week <- sapply( DT1$week, as.factor )
 head(DT1$week)
 ```
@@ -352,6 +353,6 @@ ggplot( weeksteps, aes( x = interval, y = steps, color = week ) ) + geom_line( s
     legend.text  = element_text( size = 14 ))
 ```
 
-![](PA1_template_files/figure-html/unnamed-chunk-20-1.png) 
+![](PA1_template_files/figure-html/unnamed-chunk-21-1.png) 
 
 

@@ -1,8 +1,9 @@
 ---
-title: "Reproducible Research: Peer Assessment 1"
-output: 
+title: 'Reproducible Research: Peer Assessment 1'
+output:
   html_document:
-    keep_md: true
+    keep_md: yes
+  pdf_document: default
 ---
 
 ## 1. Loading and preprocessing the data  
@@ -189,7 +190,7 @@ mergedata$Data    <- revalue( mergedata$Data, c( "Steps.x" = "NAs excluded", "St
 ```{r, fig.width = 20, fig.height = 10}
 
 ggplot( mergedata, aes( x = date , y = Steps, fill = Data  ) ) + 
-  geom_histogram( stat = "identity", position="dodge" ) +  
+  geom_histogram( stat = "identity", position = "dodge" ) +  
   ggtitle( "Total number of steps taken each day" ) + xlab( "Date: 2012/10/1 ~ 2012/11/30" ) + theme(
     plot.title   = element_text( size = 24, face = "bold" ),
     legend.title = element_text( size = 18 ),
@@ -212,11 +213,16 @@ ggplot( mergedata, aes( x = date , y = Steps, fill = Data  ) ) +
 
 ## 5. Are there differences in activity patterns between weekdays and weekends? Use the dataset with the filled-in missing values for this part.
 
-#### 5-1. Create a new factor variable in the dataset with two levels – “weekday” and “weekend” indicating whether a given date is a weekday or weekend day.
+#### 5-1. Create a new factor variable in the dataset with two levels ?V ??weekday?? and ??weekend?? indicating whether a given date is a weekday or weekend day.
 
 - Convert the date column in `DT1` from character to date type.
 - Add a new column called week referring to the weekdays of the date.
-- **My weekdays function will print out the weekdays Chinese, FYI : 星期一 = Monday ; 星期二 = Thuesday ; 星期三 = Wednesday ; 星期四 = Thursday ; 星期五 = Friday ; 星期六 = Saturday ; 星期日 = Sunday .**
+```{r, include = FALSE}
+
+Sys.setlocale("LC_TIME", "English")
+
+```
+
 ```{r}
 
 DT1$date <- as.Date( DT1$date, format = "%Y-%m-%d" )
@@ -227,7 +233,7 @@ DT1[, week := weekdays(DT1$date) ]
 - Convert the weekdays to just weekend and weekday and as factor.
 ```{r}
 
-DT1$week <- ifelse( DT1$week %in% c( "星期六", "星期日" ), "weekend", "weekday" )
+DT1$week <- ifelse( DT1$week %in% c( "Saturday", "Sunday" ), "weekend", "weekday" )
 DT1$week <- sapply( DT1$week, as.factor )
 head(DT1$week)
 

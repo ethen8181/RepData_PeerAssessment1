@@ -258,7 +258,7 @@ mergedata$Data    &lt;- revalue( mergedata$Data, c( &quot;Steps.x&quot; = &quot;
 <li>Plot the histogram using the <code>mergedata</code></li>
 </ul>
 <pre class="r"><code>ggplot( mergedata, aes( x = date , y = Steps, fill = Data  ) ) + 
-  geom_histogram( stat = &quot;identity&quot;, position=&quot;dodge&quot; ) +  
+  geom_histogram( stat = &quot;identity&quot;, position = &quot;dodge&quot; ) +  
   ggtitle( &quot;Total number of steps taken each day&quot; ) + xlab( &quot;Date: 2012/10/1 ~ 2012/11/30&quot; ) + theme(
     plot.title   = element_text( size = 24, face = &quot;bold&quot; ),
     legend.title = element_text( size = 18 ),
@@ -276,31 +276,30 @@ mergedata$Data    &lt;- revalue( mergedata$Data, c( &quot;Steps.x&quot; = &quot;
 </div>
 <div id="are-there-differences-in-activity-patterns-between-weekdays-and-weekends-use-the-dataset-with-the-filled-in-missing-values-for-this-part." class="section level2">
 <h2>5. Are there differences in activity patterns between weekdays and weekends? Use the dataset with the filled-in missing values for this part.</h2>
-<div id="create-a-new-factor-variable-in-the-dataset-with-two-levels-weekday-and-weekend-indicating-whether-a-given-date-is-a-weekday-or-weekend-day." class="section level4">
-<h4>5-1. Create a new factor variable in the dataset with two levels – “weekday” and “weekend” indicating whether a given date is a weekday or weekend day.</h4>
+<div id="create-a-new-factor-variable-in-the-dataset-with-two-levels-v-weekday-and-weekend-indicating-whether-a-given-date-is-a-weekday-or-weekend-day." class="section level4">
+<h4>5-1. Create a new factor variable in the dataset with two levels ?V ??weekday?? and ??weekend?? indicating whether a given date is a weekday or weekend day.</h4>
 <ul>
 <li>Convert the date column in <code>DT1</code> from character to date type.</li>
 <li>Add a new column called week referring to the weekdays of the date.</li>
-<li><strong>My weekdays function will print out the weekdays Chinese, FYI : 星期一 = Monday ; 星期二 = Thuesday ; 星期三 = Wednesday ; 星期四 = Thursday ; 星期五 = Friday ; 星期六 = Saturday ; 星期日 = Sunday .</strong></li>
 </ul>
 <pre class="r"><code>DT1$date &lt;- as.Date( DT1$date, format = &quot;%Y-%m-%d&quot; )
 DT1[, week := weekdays(DT1$date) ] </code></pre>
 <pre><code>##            steps       date interval   week
-##     1: 1.7169811 2012-10-01        0 星期一
-##     2: 0.3396226 2012-10-01        5 星期一
-##     3: 0.1320755 2012-10-01       10 星期一
-##     4: 0.1509434 2012-10-01       15 星期一
-##     5: 0.0754717 2012-10-01       20 星期一
+##     1: 1.7169811 2012-10-01        0 Monday
+##     2: 0.3396226 2012-10-01        5 Monday
+##     3: 0.1320755 2012-10-01       10 Monday
+##     4: 0.1509434 2012-10-01       15 Monday
+##     5: 0.0754717 2012-10-01       20 Monday
 ##    ---                                     
-## 17564: 4.6981132 2012-11-30     2335 星期五
-## 17565: 3.3018868 2012-11-30     2340 星期五
-## 17566: 0.6415094 2012-11-30     2345 星期五
-## 17567: 0.2264151 2012-11-30     2350 星期五
-## 17568: 1.0754717 2012-11-30     2355 星期五</code></pre>
+## 17564: 4.6981132 2012-11-30     2335 Friday
+## 17565: 3.3018868 2012-11-30     2340 Friday
+## 17566: 0.6415094 2012-11-30     2345 Friday
+## 17567: 0.2264151 2012-11-30     2350 Friday
+## 17568: 1.0754717 2012-11-30     2355 Friday</code></pre>
 <ul>
 <li>Convert the weekdays to just weekend and weekday and as factor.</li>
 </ul>
-<pre class="r"><code>DT1$week &lt;- ifelse( DT1$week %in% c( &quot;星期六&quot;, &quot;星期日&quot; ), &quot;weekend&quot;, &quot;weekday&quot; )
+<pre class="r"><code>DT1$week &lt;- ifelse( DT1$week %in% c( &quot;Saturday&quot;, &quot;Sunday&quot; ), &quot;weekend&quot;, &quot;weekday&quot; )
 DT1$week &lt;- sapply( DT1$week, as.factor )
 head(DT1$week)</code></pre>
 <pre><code>## [1] weekday weekday weekday weekday weekday weekday

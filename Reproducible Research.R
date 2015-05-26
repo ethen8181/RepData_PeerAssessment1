@@ -110,7 +110,7 @@ DT$steps <- sapply( DT$steps, as.numeric )
 DT1      <- DT
 
 DT1[ !complete.cases(DT1) ]$steps <- NA_fill
-View(DT)
+# View(DT)
 
 # 4. Make a histogram of the total number of steps taken each day and Calculate
 # and report the mean and median total number of steps taken per day. Do
@@ -119,7 +119,7 @@ View(DT)
 # daily number of steps?
 
 # The dataset without filling in the NAs is totalstepsByDay
-View(totalstepsByDay)
+# View(totalstepsByDay)
 totalstepsByDay1 <- DT1[ ,list( Steps = sum( steps, na.rm = TRUE ) ) , by = date ]
 
 
@@ -142,7 +142,7 @@ mergedata         <- melt   ( mergedata, id.vars = "date", value.name = "Steps",
 mergedata$Data    <- revalue( mergedata$Data, c( "Steps.x" = "NAs excluded", "Steps.y" = "NAs filled" ) )
 # head(mergedata)
 
-ggplot( mergedata, aes( x = date , y = Steps, fill = Data  ) ) + geom_histogram( stat = "identity", position="dodge" ) +  
+ggplot( mergedata, aes( x = date , y = Steps, fill = Data  ) ) + geom_histogram( stat = "identity", position = "dodge" ) +  
   ggtitle( "Total number of steps taken each day" ) + xlab( "Date: 2012/10/1 ~ 2012/11/30" ) + theme(
     plot.title   = element_text( size = 24, face = "bold" ),
     legend.title = element_text( size = 16 ),
@@ -158,16 +158,17 @@ ggplot( mergedata, aes( x = date , y = Steps, fill = Data  ) ) + geom_histogram(
 # with the filled-in missing values for this part.
 
 
-# 1. Create a new factor variable in the dataset with two levels – “weekday”
-# and “weekend” indicating whether a given date is a weekday or weekend day.
-sapply(DT1,class)
+# 1. Create a new factor variable in the dataset with two levels ?V ??weekday??
+# and ??weekend?? indicating whether a given date is a weekday or weekend day.
 
+# sapply(DT1,class)
+# change the time, so weekday function won't appear in Chinese
+Sys.setlocale("LC_TIME", "English")
 DT1$date <- as.Date( DT1$date, format = "%Y-%m-%d" )
 DT1[, week := weekdays(DT1$date) ] 
-
-# convert the weekdays to just weekend and weekday, my weekdays function is printed out in Chinese
-# FYI : 星期六 = Saturday ; 星期日 = Sunday
-DT1$week <- ifelse( DT1$week %in% c( "星期六", "星期日" ), "weekend", "weekday" )
+View(DT1)
+# convert the weekdays to just weekend and weekday
+DT1$week <- ifelse( DT1$week %in% c( "Saturday", "Sunday" ), "weekend", "weekday" )
 DT1$week <- sapply( DT1$week, as.factor )
 
 
